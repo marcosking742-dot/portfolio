@@ -1,10 +1,825 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Joshua's Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>King Joshua Marcos — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --accent: #e8ff47;
+    --accent2: #47ffd4;
+    --text: #f0f0f0;
+    --muted: #666;
+    --border: #222;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(232,255,71,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,255,71,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,255,71,0.06) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 900px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(52px, 8vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+
+  h1 .highlight {
+    color: var(--accent);
+    position: relative;
+  }
+
+  h1 .line2 {
+    color: var(--muted);
+    display: block;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: #999;
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(232,255,71,0.2);
+  }
+
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    position: absolute;
+    right: 48px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    animation: fadeUp 0.6s ease 0.4s both;
+  }
+
+  .stat {
+    text-align: right;
+    border-right: 2px solid var(--accent);
+    padding-right: 20px;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 100px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    height: 1px;
+    width: 48px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 4vw, 52px);
+    letter-spacing: -2px;
+    margin-bottom: 48px;
+    line-height: 1.1;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: #999;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+  }
+
+  .about-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    transition: border-color 0.2s;
+  }
+
+  .about-card:hover { border-color: var(--accent); }
+
+  .about-card-icon {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .about-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .about-card p {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .skill-tag {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+  }
+
+  .skill-tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .skill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* PROJECT */
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 64px rgba(232,255,71,0.08);
+  }
+
+  .project-header {
+    padding: 32px;
+    background: linear-gradient(135deg, #111 0%, #1a1f0a 100%);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .project-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -1px;
+  }
+
+  .project-badge {
+    background: rgba(232,255,71,0.1);
+    border: 1px solid rgba(232,255,71,0.3);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  .project-body {
+    padding: 32px;
+  }
+
+  .project-body h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .project-body p {
+    color: #888;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .stack-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(232,255,71,0.3);
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+
+  .project-link:hover {
+    border-color: var(--accent);
+    gap: 12px;
+  }
+
+  /* WORK SAMPLES */
+  .samples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .sample-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.2s;
+  }
+
+  .sample-card:hover {
+    border-color: var(--accent2);
+    transform: translateY(-2px);
+  }
+
+  .sample-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(71,255,212,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .sample-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .sample-card p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  .contact-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .contact-box h2 {
+    margin-bottom: 16px;
+  }
+
+  .contact-box p {
+    color: #888;
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+
+  .contact-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 48px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-stats { display: none; }
+    h1 { font-size: 48px; letter-spacing: -2px; }
+    section { padding: 60px 24px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-box { padding: 32px 24px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
 </head>
 <body>
-    <h1>Welcome to Joshua's Portfolio</h1>
-    <p>This is a showcase of my work and projects.</p>
+
+<nav>
+  <div class="nav-logo">KJM</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#samples">Samples</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for work · Philippines</div>
+    <h1>
+      King<br>
+      <span class="highlight">Joshua</span>
+      <span class="line2">Marcos.</span>
+    </h1>
+    <p class="hero-desc">
+      Data Operations & Virtual Assistant Specialist. I build systems, manage workflows, and get things done — powered by AI tools and an obsessive attention to detail.
+    </p>
+    <div class="hero-cta">
+      <a href="#work" class="btn btn-primary">View My Work →</a>
+      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">1</div>
+      <div class="stat-label">SaaS Built Solo</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">AI</div>
+      <div class="stat-label">Native Workflow</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Remote Ready</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 / About</div>
+  <h2>Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I am a <strong>Data Operations and Technical Admin Specialist</strong> based in Pangasinan, Philippines. I specialize in keeping operations clean, organized, and running smoothly — whether that is managing data, coordinating workflows, or providing executive-level administrative support.</p>
+      <p>I built and launched <strong>ModlyAI</strong>, an AI-powered furniture design SaaS platform, entirely on my own using Cursor, Next.js, InstantDB, and Vercel. That experience sharpened every operational skill I have — because when you run everything solo, nothing can fall through the cracks.</p>
+      <p>I use AI tools like <strong>Claude and Cursor</strong> daily to work faster, document better, and automate what should be automated. I am not just familiar with AI — I build with it.</p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon">⚡</div>
+        <h4>AI-Native Workflow</h4>
+        <p>I use Claude, Cursor, and other AI tools every single day to multiply my output and improve quality.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🎯</div>
+        <h4>Detail-Oriented by Default</h4>
+        <p>I catch errors before they become problems. Quality is built into the process, not checked at the end.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🚀</div>
+        <h4>Independent Executor</h4>
+        <p>I do not wait to be told what to do next. I identify what needs to happen and make it happen.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🌏</div>
+        <h4>Remote-Ready</h4>
+        <p>Based in the Philippines. Fully available for US, Australian, and graveyard shift hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">02 / Skills</div>
+  <h2>What I Bring</h2>
+  <div class="skills-grid">
+    <div class="skill-tag"><span class="skill-dot"></span>Data Entry & Validation</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Google Workspace</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Microsoft Excel</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Calendar Management</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Email & Inbox Management</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Process Documentation</div>
+    <div class="skill-tag"><span class="skill-dot"></span>SOP Creation</div>
+    <div class="skill-tag"><span class="skill-dot"></span>CRM Data Management</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Research & Reporting</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Claude AI</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Cursor (AI Coding)</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Next.js / React</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Vercel Deployment</div>
+    <div class="skill-tag"><span class="skill-dot"></span>InstantDB</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Git & GitHub</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Workflow Optimization</div>
+    <div class="skill-tag"><span class="skill-dot"></span>File & Document Organization</div>
+    <div class="skill-tag"><span class="skill-dot"></span>Attention to Detail</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FEATURED PROJECT -->
+<section id="work">
+  <div class="section-label">03 / Featured Work</div>
+  <h2>What I Built</h2>
+  <div class="project-card">
+    <div class="project-header">
+      <div class="project-logo">ModlyAI</div>
+      <div class="project-badge">LIVE PRODUCT</div>
+    </div>
+    <div class="project-body">
+      <h3>AI-Powered Furniture Design & Space Planning Platform</h3>
+      <p>ModlyAI is a SaaS platform I built and launched entirely on my own. Users upload photos of their room, provide dimensions, and the AI generates personalized furniture recommendations including sizing, materials, colors, and placement. A built-in chat assistant lets users customize further through a conversational interface. I handled everything from product design and development to deployment and ongoing maintenance — no team, no co-founder, just execution.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Next.js</span>
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">InstantDB</span>
+        <span class="stack-tag">Vercel</span>
+        <span class="stack-tag">Cursor</span>
+        <span class="stack-tag">Claude API</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">Git/GitHub</span>
+      </div>
+      <a href="https://modlyai.tech" target="_blank" class="project-link">
+        Visit modlyai.tech →
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WORK SAMPLES -->
+<section id="samples">
+  <div class="section-label">04 / Capabilities</div>
+  <h2>What I Can Do For You</h2>
+  <div class="samples-grid">
+    <div class="sample-card">
+      <div class="sample-icon">📊</div>
+      <h4>Data Entry & Management</h4>
+      <p>High-volume data entry, validation, discrepancy checking, and maintaining clean, audit-ready records in Excel, Google Sheets, or CRM systems.</p>
+    </div>
+    <div class="sample-card">
+      <div class="sample-icon">📅</div>
+      <h4>Executive & Admin Support</h4>
+      <p>Calendar management, email inbox organization, meeting coordination, document preparation, and general day-to-day operational support.</p>
+    </div>
+    <div class="sample-card">
+      <div class="sample-icon">📋</div>
+      <h4>Process Documentation</h4>
+      <p>Writing clear SOPs, workflow documentation, and internal guides that are easy to follow and built to scale with the team.</p>
+    </div>
+    <div class="sample-card">
+      <div class="sample-icon">🔍</div>
+      <h4>Research & Reporting</h4>
+      <p>Structured research, data synthesis, and report generation. I turn raw information into clear, actionable summaries.</p>
+    </div>
+    <div class="sample-card">
+      <div class="sample-icon">🤖</div>
+      <h4>AI-Assisted Operations</h4>
+      <p>Using Claude, Cursor, and other AI tools to automate repetitive tasks, accelerate documentation, and improve output quality across any workflow.</p>
+    </div>
+    <div class="sample-card">
+      <div class="sample-icon">⚙️</div>
+      <h4>Workflow Optimization</h4>
+      <p>Identifying bottlenecks, building checklists, and implementing process improvements that reduce errors and save time.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-box">
+    <div class="section-label" style="justify-content:center">05 / Contact</div>
+    <h2>Let's Work Together</h2>
+    <p>I am immediately available and ready to contribute from day one. Reach out and let's talk.</p>
+    <div class="contact-links">
+      <a href="mailto:hello@modlyai.tech" class="contact-item">
+        ✉ hello@modlyai.tech
+      </a>
+      <a href="tel:+639294791598" class="contact-item">
+        📱 0929 479 1598
+      </a>
+      <a href="https://modlyai.tech" target="_blank" class="contact-item">
+        🌐 modlyai.tech
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>King Joshua Marcos — Pangasinan, Philippines</span>
+  <span>Available · Remote · Immediate Start</span>
+</footer>
+
 </body>
 </html>
