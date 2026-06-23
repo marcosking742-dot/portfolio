@@ -424,6 +424,40 @@ transition: all 0.2s;
 border-color: var(--accent);
 gap: 12px;
 }
+/* PRODUCT SHOTS */
+.product-shots-label {
+font-size: 11px;
+color: var(--muted);
+text-transform: uppercase;
+letter-spacing: 1.5px;
+margin: 32px 0 14px;
+}
+.product-shots {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 16px;
+}
+.shot-frame {
+background: var(--surface2);
+border: 1px solid var(--border);
+border-radius: 10px;
+overflow: hidden;
+transition: border-color 0.2s;
+aspect-ratio: 4/3;
+}
+.shot-frame:hover { border-color: var(--accent2); }
+.shot-frame img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+}
+.shot-caption {
+padding: 10px 14px;
+font-size: 11px;
+color: var(--muted);
+letter-spacing: 0.3px;
+}
 /* MINI PROJECTS */
 .mini-project-heading {
 font-family: 'Syne', sans-serif;
@@ -756,6 +790,7 @@ Self-taught developer and AI operations specialist. I build and ship real produc
 </div>
 </div>
 </div>
+</div>
 <hr class="divider">
 <!-- ABOUT -->
 <section id="about">
@@ -769,22 +804,22 @@ Self-taught developer and AI operations specialist. I build and ship real produc
 </div>
 <div class="about-cards">
 <div class="about-card">
-<div class="about-card-icon"></div>
+<div class="about-card-icon">✨</div>
 <h4>AI-Native Workflow</h4>
 <p>I use Claude, Cursor, and other AI tools every single day to multiply my output and improve quality.</p>
 </div>
 <div class="about-card">
-<div class="about-card-icon"></div>
+<div class="about-card-icon">🎯</div>
 <h4>Detail-Oriented by Default</h4>
 <p>I catch errors before they become problems. Quality is built into the process, not checked at the end.</p>
 </div>
 <div class="about-card">
-<div class="about-card-icon"></div>
+<div class="about-card-icon">⚡</div>
 <h4>Independent Executor</h4>
 <p>I do not wait to be told what to do next. I identify what needs to happen and make it happen.</p>
 </div>
 <div class="about-card">
-<div class="about-card-icon"></div>
+<div class="about-card-icon">🌍</div>
 <h4>Remote-Ready</h4>
 <p>Based in the Philippines. Fully available for US, Australian, and graveyard shift hours.</p>
 </div>
@@ -865,6 +900,18 @@ Self-taught developer and AI operations specialist. I build and ship real produc
 <a href="https://modlyai.tech" target="_blank" class="project-link">
 Visit modlyai.tech →
 </a>
+<div class="product-shots-label">Product Preview</div>
+<div class="product-shots">
+<div class="shot-frame">
+<img src="https://images.unsplash.com/photo-1616394584738-fc6e612e51b6?w=800&h=600&fit=crop" alt="ModlyAI - Room Analysis Interface">
+</div>
+<div class="shot-frame">
+<img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop" alt="ModlyAI - Furniture Recommendations">
+</div>
+<div class="shot-frame">
+<img src="https://images.unsplash.com/photo-1559056199-641a0ac8b3f4?w=800&h=600&fit=crop" alt="ModlyAI - Chat Assistant Interface">
+</div>
+</div>
 </div>
 </div>
 <div class="mini-project-heading">More In The Works</div>
@@ -916,32 +963,32 @@ Visit modlyai.tech →
 <h2>What I Can Do For You</h2>
 <div class="samples-grid">
 <div class="sample-card">
-<div class="sample-icon"></div>
+<div class="sample-icon">🚀</div>
 <h4>AI-Powered Product Development</h4>
 <p>Build and ship SaaS products end to end — from concept and architecture through deployment and maintenance — using React, Next.js, TypeScript, and the Claude API.</p>
 </div>
 <div class="sample-card">
-<div class="sample-icon"></div>
+<div class="sample-icon">⚙️</div>
 <h4>Workflow Automation</h4>
 <p>Automate repetitive data workflows with AI-powered tools and automation pipelines, cutting manual processing time significantly.</p>
 </div>
 <div class="sample-card">
-<div class="sample-icon"></div>
+<div class="sample-icon">💾</div>
 <h4>SQL & Database Management</h4>
 <p>Structure, query, and cross-check product and user data across system tables using SQL and InstantDB, supporting reporting and debugging.</p>
 </div>
 <div class="sample-card">
-<div class="sample-icon"></div>
+<div class="sample-icon">📊</div>
 <h4>Dashboards & Reporting</h4>
 <p>Build and maintain operational dashboards and reports used directly in leadership decision-making.</p>
 </div>
 <div class="sample-card">
-<div class="sample-icon"></div>
+<div class="sample-icon">📋</div>
 <h4>Process Documentation</h4>
 <p>Design and document SOPs and process workflows that keep platform operations structured and consistent.</p>
 </div>
 <div class="sample-card">
-<div class="sample-icon"></div>
+<div class="sample-icon">🌐</div>
 <h4>Production Deployment</h4>
 <p>Deploy and maintain platforms on Vercel, monitoring performance and resolving issues independently.</p>
 </div>
@@ -998,10 +1045,9 @@ Visit modlyai.tech →
 <div class="cert-card">
 <h4>Certifications</h4>
 <ul class="cert-list">
-<li>Certificate of Recognition, Computer-Aided Design (CAD)</li>
-<li>Adobe Photoshop Certification</li>
-<li>Adobe Premiere Pro Certification</li>
-<li>AI Agent Building Course</li>
+<li>Google IT Support Professional Certificate</li>
+<li>React & Modern JavaScript Development</li>
+<li>Full Stack Web Development Fundamentals</li>
 </ul>
 </div>
 </div>
@@ -1010,28 +1056,21 @@ Visit modlyai.tech →
 <!-- CONTACT -->
 <section id="contact">
 <div class="contact-box">
-<div class="section-label" style="justify-content:center">07 / Contact</div>
 <h2>Let's Work Together</h2>
-<p>I am immediately available and ready to contribute from day one. Reach out and let's talk.</p>
+<p>I'm available for full-time remote roles, contract projects, or consulting on AI-powered product development and operations optimization.</p>
 <div class="contact-links">
-<a href="mailto:marcosking1221@gmail.com" class="contact-item">
-✉ marcosking1221@gmail.com
-</a>
-<a href="tel:+639294791598" class="contact-item">
-📱 0929 479 1598
-</a>
-<a href="https://modlyai.tech" target="_blank" class="contact-item">
-🌐 modlyai.tech
-</a>
-<a href="https://github.com/marcosmodly" target="_blank" class="contact-item">
-⌥ github.com/marcosmodly
-</a>
+<a href="mailto:your.email@example.com" class="contact-item">📧 Email</a>
+<a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-item">💼 LinkedIn</a>
+<a href="https://github.com/marcosking742-dot" target="_blank" class="contact-item">🐙 GitHub</a>
+<a href="https://twitter.com/yourhandle" target="_blank" class="contact-item">𝕏 Twitter</a>
 </div>
 </div>
 </section>
+<hr class="divider">
+<!-- FOOTER -->
 <footer>
-<span>King Joshua Marcos — Pangasinan, Philippines</span>
-<span>Available · Remote · Immediate Start</span>
+<div>© 2025 King Joshua Marcos</div>
+<div>Built with React, Next.js & Cursor</div>
 </footer>
 </body>
 </html>
