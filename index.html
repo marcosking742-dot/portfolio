@@ -455,6 +455,49 @@ font-size: 11px;
 color: var(--muted);
 letter-spacing: 0.3px;
 }
+.shot-frame img {
+cursor: zoom-in;
+}
+/* LIGHTBOX */
+#lightbox-overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.92);
+display: none;
+align-items: center;
+justify-content: center;
+padding: 48px;
+z-index: 1000;
+cursor: zoom-out;
+}
+#lightbox-overlay.active { display: flex; }
+#lightbox-overlay img {
+max-width: 92vw;
+max-height: 90vh;
+border-radius: 10px;
+box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+}
+#lightbox-close {
+position: absolute;
+top: 24px;
+right: 32px;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: var(--surface);
+border: 1px solid var(--border);
+color: var(--text);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+cursor: pointer;
+transition: all 0.2s;
+}
+#lightbox-close:hover {
+border-color: var(--accent);
+color: var(--accent);
+}
 /* MINI PROJECTS */
 .mini-project-heading {
 font-family: 'Syne', sans-serif;
@@ -657,6 +700,72 @@ content: '✓';
 color: var(--accent2);
 font-weight: 700;
 }
+/* VIDEO EDITS */
+.video-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 20px;
+}
+.video-card {
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: 12px;
+overflow: hidden;
+transition: border-color 0.2s;
+}
+.video-card:hover { border-color: var(--accent2); }
+.video-card video {
+width: 100%;
+aspect-ratio: 16/9;
+display: block;
+background: #000;
+}
+.video-card iframe {
+width: 100%;
+aspect-ratio: 16/9;
+display: block;
+border: none;
+background: #000;
+}
+.video-placeholder {
+width: 100%;
+aspect-ratio: 16/9;
+background: var(--surface2);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 10px;
+color: var(--muted);
+}
+.video-placeholder-icon {
+width: 48px;
+height: 48px;
+border-radius: 50%;
+border: 2px solid var(--border);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 16px;
+color: var(--accent);
+}
+.video-placeholder span {
+font-size: 12px;
+letter-spacing: 0.5px;
+}
+.video-caption {
+padding: 16px 20px;
+}
+.video-caption h4 {
+font-family: 'Syne', sans-serif;
+font-size: 14px;
+font-weight: 700;
+margin-bottom: 4px;
+}
+.video-caption p {
+font-size: 12px;
+color: var(--muted);
+}
 /* CONTACT */
 .contact-box {
 background: var(--surface);
@@ -749,6 +858,7 @@ footer { flex-direction: column; gap: 8px; text-align: center; }
 <li><a href="#about">About</a></li>
 <li><a href="#skills">Skills</a></li>
 <li><a href="#work">Work</a></li>
+<li><a href="#video-edits">Video Edits</a></li>
 <li><a href="#experience">Experience</a></li>
 <li><a href="#education">Education</a></li>
 <li><a href="#contact">Contact</a></li>
@@ -956,9 +1066,61 @@ Visit modlyai.tech →
 </div>
 </section>
 <hr class="divider">
+<!--
+=====================================================================
+ VIDEO EDITS — HOW TO ADD YOUR OWN VIDEOS
+=====================================================================
+ Each .video-card below is a placeholder. Pick ONE option per card:
+
+ OPTION A — Self-hosted video file (mp4):
+ 1. Put your .mp4 file in the same repo folder as this index.html
+    (e.g. a "videos" folder: videos/edit-1.mp4)
+ 2. Replace the <div class="video-placeholder">...</div> with:
+      <video controls poster="videos/edit-1-thumb.jpg">
+        <source src="videos/edit-1.mp4" type="video/mp4">
+      </video>
+    (the poster image is optional — a thumbnail shown before play)
+
+ OPTION B — YouTube:
+ 1. Get your video ID from the URL, e.g.
+    youtube.com/watch?v=ABC123XYZ  ->  ID is ABC123XYZ
+ 2. Replace the placeholder div with:
+      <iframe src="https://www.youtube.com/embed/ABC123XYZ"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+
+ OPTION C — Vimeo:
+ 1. Get your video ID from the URL, e.g. vimeo.com/123456789
+ 2. Replace the placeholder div with:
+      <iframe src="https://player.vimeo.com/video/123456789"
+        allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+ To add more videos, copy a whole .video-card block and paste it again
+ inside .video-grid. To remove a slot, delete its .video-card block.
+=====================================================================
+-->
+<section id="video-edits">
+<div class="section-label">04 / Video Edits</div>
+<h2>Video Work</h2>
+<div class="video-grid">
+
+<div class="video-card">
+<div class="video-placeholder">
+<div class="video-placeholder-icon">▶</div>
+<span>Replace with your video — see OPTION A/B/C above</span>
+</div>
+<div class="video-caption">
+<h4>Edit Title</h4>
+<p>One line describing the edit — style, software used, or the brief.</p>
+</div>
+</div>
+
+</div>
+</section>
+<hr class="divider">
 <!-- WORK SAMPLES -->
 <section id="samples">
-<div class="section-label">04 / Capabilities</div>
+<div class="section-label">05 / Capabilities</div>
 <h2>What I Can Do For You</h2>
 <div class="samples-grid">
 <div class="sample-card">
@@ -996,7 +1158,7 @@ Visit modlyai.tech →
 <hr class="divider">
 <!-- EXPERIENCE -->
 <section id="experience">
-<div class="section-label">05 / Experience</div>
+<div class="section-label">06 / Experience</div>
 <h2>Where I've Worked</h2>
 <div class="exp-card">
 <div class="exp-header">
@@ -1033,7 +1195,7 @@ Visit modlyai.tech →
 <hr class="divider">
 <!-- EDUCATION & CERTIFICATIONS -->
 <section id="education">
-<div class="section-label">06 / Education & Certifications</div>
+<div class="section-label">07 / Education & Certifications</div>
 <h2>Background</h2>
 <div class="edu-grid">
 <div class="edu-card">
@@ -1053,10 +1215,11 @@ Visit modlyai.tech →
 </div>
 </section>
 <hr class="divider">
+
 <!-- CONTACT -->
 <section id="contact">
 <div class="contact-box">
-<div class="section-label" style="justify-content:center">07 / Contact</div>
+<div class="section-label" style="justify-content:center">08 / Contact</div>
 <h2>Let's Work Together</h2>
 <p>I am immediately available and ready to contribute from day one. Reach out and let's talk.</p>
 <div class="contact-links">
@@ -1079,5 +1242,37 @@ Visit modlyai.tech →
 <span>King Joshua Marcos — Pangasinan, Philippines</span>
 <span>Available · Remote · Immediate Start</span>
 </footer>
+
+<div id="lightbox-overlay">
+<div id="lightbox-close">×</div>
+<img id="lightbox-img" src="" alt="Enlarged screenshot">
+</div>
+
+<script>
+(function() {
+var overlay = document.getElementById('lightbox-overlay');
+var overlayImg = document.getElementById('lightbox-img');
+var closeBtn = document.getElementById('lightbox-close');
+
+document.querySelectorAll('.shot-frame img').forEach(function(img) {
+img.addEventListener('click', function() {
+overlayImg.src = img.src;
+overlayImg.alt = img.alt;
+overlay.classList.add('active');
+});
+});
+
+function closeLightbox() {
+overlay.classList.remove('active');
+overlayImg.src = '';
+}
+
+overlay.addEventListener('click', closeLightbox);
+closeBtn.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', function(e) {
+if (e.key === 'Escape') closeLightbox();
+});
+})();
+</script>
 </body>
 </html>
